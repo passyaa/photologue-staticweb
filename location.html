@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photologue - Home</title>
+    <link rel="icon" type="image/png" href="./assets/favicon/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
@@ -50,6 +51,8 @@
         </div>
     </nav>
 
+    
+
     <!-- Location Content -->
     <div class="container mt-5">
         <h1 class="text-center mb-5">Photographer and Studio Locations</h1>
@@ -65,14 +68,15 @@
             <div class="col-md-6">
                 <h3>Studio Location</h3>
                 <div class="map-container">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.217329072734!2d-122.08560808463958!3d37.42199977982568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb5a6c06bde9d%3A0xb21420e705cccdc2!2sGoogleplex!5e0!3m2!1sen!2sus!4v1602109652979!5m2!1sen!2sus"
-                        frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.8718246793383!2d106.91996517593647!3d-6.2805764937082875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d044a483ff3%3A0x7c20c17d8086d0da!2sBabys%20Care!5e0!3m2!1sen!2sus!4v1719944906327!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
                 </div>
             </div>
         </div>
     </div>
 
+    <h3>My Google Map</h3>
+    <!-- Elemen yang akan menjadi peta -->
+    <div id="map"></div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -102,6 +106,30 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Fungsi untuk menginisialisasi peta
+        function initMap() {
+            // Lokasi default (contoh: Jakarta)
+            var jakarta = { lat: -6.200000, lng: 106.816666 };
+
+            // Membuat peta baru dan menghubungkannya ke elemen #map
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: jakarta
+            });
+
+            // Menambahkan marker di lokasi default
+            var marker = new google.maps.Marker({
+                position: jakarta,
+                map: map
+            });
+        }
+    </script>
+
+    <!-- Menyertakan Google Maps API dengan API key Anda -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
 </body>
 
 </html>
