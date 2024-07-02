@@ -1,4 +1,4 @@
-# Photologue Website README
+# ![Photologue Logo](./assets/logo-photologue.png)
 
 ## Overview
 
