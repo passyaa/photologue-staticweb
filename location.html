@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photologue - Home</title>
+    <title>Photologue - Location</title>
     <link rel="icon" type="image/png" href="./assets/favicon/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -51,32 +51,79 @@
         </div>
     </nav>
 
-    
 
-    <!-- Location Content -->
-    <div class="container mt-5">
-        <h1 class="text-center mb-5">Photographer and Studio Locations</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Photographer Location</h3>
-                <div class="map-container">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.217329072734!2d-122.08560808463958!3d37.42199977982568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb5a6c06bde9d%3A0xb21420e705cccdc2!2sGoogleplex!5e0!3m2!1sen!2sus!4v1602109652979!5m2!1sen!2sus"
-                        frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+    <!-- Photographer Homebase -->
+    <section class="features">
+        <div class="container mt-5">
+            <h1 class="text-center mb-5">Photographer Area</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Select City & Photographer</h3>
+                    <div class="form-group">
+                        <label for="city-select">City :</label>
+                        <select id="city-select" class="form-control">
+                            <option value="">Select a city</option>
+                            <option value="jakarta">Jakarta</option>
+                            <option value="bali">Bali</option>
+                            <option value="jogja">Jogja</option>
+                            <option value="surabaya">Surabaya</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="photographer-container" style="display:none;">
+                        <label for="photographer-select">Photographer Name:</label>
+                        <select id="photographer-select" class="form-control">
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <h3>Studio Location</h3>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.8718246793383!2d106.91996517593647!3d-6.2805764937082875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d044a483ff3%3A0x7c20c17d8086d0da!2sBabys%20Care!5e0!3m2!1sen!2sus!4v1719944906327!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+                <div class="col-md-6">
+                    <h3>Photographer Area</h3>
+                    <div class="map-container">
+                        <iframe id="photographer-map"
+                            src=""
+                            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                            tabindex="0"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <h3>My Google Map</h3>
-    <!-- Elemen yang akan menjadi peta -->
-    <div id="map"></div>
+    <!-- Studio Photo Location -->
+    <section class="features">
+        <div class="container mt-5">
+            <h1 class="text-center mb-5">Studio Photo Locations</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Select City & Photographer</h3>
+                    <div class="form-group">
+                        <label for="city-select">City :</label>
+                        <select id="city-select" class="form-control">
+                            <option value="">Select a city</option>
+                            <option value="jakarta">Jakarta</option>
+                            <option value="bali">Bali</option>
+                            <option value="jogja">Jogja</option>
+                            <option value="surabaya">Surabaya</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="photographer-container" style="display:none;">
+                        <label for="photographer-select">Photographer Name:</label>
+                        <select id="photographer-select" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Studio Photo Location</h3>
+                    <div class="map-container">
+                        <iframe id="photographer-map"
+                            src=""
+                            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                            tabindex="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -108,27 +155,55 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Fungsi untuk menginisialisasi peta
-        function initMap() {
-            // Lokasi default (contoh: Jakarta)
-            var jakarta = { lat: -6.200000, lng: 106.816666 };
+        const citySelect = document.getElementById('city-select');
+        const photographerSelect = document.getElementById('photographer-select');
+        const photographerContainer = document.getElementById('photographer-container');
+        const photographerMap = document.getElementById('photographer-map');
 
-            // Membuat peta baru dan menghubungkannya ke elemen #map
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 10,
-                center: jakarta
-            });
+        const locations = {
+            "jakarta": {
+                "adi": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1983.6845434902842!2d106.81663561603244!3d-6.199449695493537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e6d5d9d95b%3A0xf8a3e3e7a1f1c2b9!2sTaman%20Menteng!5e0!3m2!1sen!2sid!4v1602110021843!5m2!1sen!2sid",
+                "wijaya": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.6229234076586!2d106.80880250959354!3d-6.135200667577343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3bc4b5d416d%3A0x4a8d12f702d80d5d!2sKota%20Tua%20Jakarta!5e0!3m2!1sen!2sid!4v1602110065898!5m2!1sen!2sid"
+            },
+            "bali": {
+                "yusuf": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3187.2366480132376!2d116.83883771523037!3d-1.2422193339987537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14761921c35f7%3A0xf881e7a262a2a19f!2sTaman%20Bekapai!5e0!3m2!1sen!2sid!4v1602110143011!5m2!1sen!2sid",
+                "rina": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15925.860042207586!2d116.83104215120424!3d-1.267152962671509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14821b8d3c2cf%3A0x5c70d5e1b8c4e7a8!2sPantai%20Kemala!5e0!3m2!1sen!2sid!4v1602110184758!5m2!1sen!2sid"
+            },
+            "jogja": {
+                "budi": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7137059266343!2d110.37052871523448!3d-7.801860994365918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5911e3019305%3A0xf351d9b72b5e890!2sTaman%20Sari!5e0!3m2!1sen!2sid!4v1602110224416!5m2!1sen!2sid",
+                "sari": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.712355542889!2d110.36607841523449!3d-7.802011494365949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5910db95a38b%3A0x80e3cf3e40e1a47a!2sKeraton%20Yogyakarta!5e0!3m2!1sen!2sid!4v1602110265982!5m2!1sen!2sid"
+            },
+            "surabaya": {
+                "andi": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1974.6272781796624!2d112.75208661524305!3d-7.257472795168762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbdc07e47a47%3A0xbcd0de8c61c74b41!2sTaman%20Bungkul!5e0!3m2!1sen!2sid!4v1602110302489!5m2!1sen!2sid",
+                "sinta": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1975.5907420285286!2d112.73985781524246!3d-7.239968095177768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb9b8c1b329f%3A0xb32a3bfc0ea3dd91!2sJembatan%20Merah%20Plaza!5e0!3m2!1sen!2sid!4v1602110346123!5m2!1sen!2sid"
+            }
+        };
 
-            // Menambahkan marker di lokasi default
-            var marker = new google.maps.Marker({
-                position: jakarta,
-                map: map
-            });
-        }
-    </script>
+        citySelect.addEventListener('change', function () {
+            const city = this.value;
+            photographerSelect.innerHTML = '';
 
-    <!-- Menyertakan Google Maps API dengan API key Anda -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+            if (city) {
+                const photographers = Object.keys(locations[city]);
+                photographers.forEach(name => {
+                    const option = document.createElement('option');
+                    option.value = name;
+                    option.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+                    photographerSelect.appendChild(option);
+                });
+                photographerContainer.style.display = 'block';
+            } else {
+                photographerContainer.style.display = 'none';
+            }
+        });
+
+        photographerSelect.addEventListener('change', function () {
+            const city = citySelect.value;
+            const photographer = this.value;
+            if (city && photographer) {
+                photographerMap.src = locations[city][photographer];
+            }
+        });
     </script>
 </body>
 
