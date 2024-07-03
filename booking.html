@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photologue - Booking</title>
+    <link rel="icon" type="image/png" href="./assets/favicon/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white
+        }
+
+        .header {
+            background-size: cover;
+            background-position: center;
+            color: black;
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 50px 15px;
+        }
+
+        .available {
+            color: green;
+        }
+
+        .unavailable {
+            color: red;
+        }
+
+        .rounded-box {
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .selected {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
+        <a class="navbar-brand" href="#"><img src="./assets/logo-photologue.png" alt="logo-photologue" class="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="./home.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="./photographer.html">Photographer</a></li>
+                <li class="nav-item"><a class="nav-link" href="./galery.html">Portfolio/Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="./booking.html">Booking</a></li>
+                <li class="nav-item"><a class="nav-link" href="./location.html">Locations</a></li>
+                <li class="nav-item"><a class="nav-link" href="./about-us.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Us Content -->
+    <div class="header">
+        <h1>Booking Photographer</h1>
+        <p>Welcome to Photologue, your premier photography service</p>
+    </div>
+
+    <section class="background">
+        <div class="container mt-5">
+            <h2>Photographer Booking</h2>
+            <form id="bookingForm">
+                <!-- Step 1: Select City -->
+                <div class="form-group">
+                    <label for="city">Select City</label>
+                    <select class="form-control" id="city" onchange="loadPhotographers()">
+                        <option value="">Select a city</option>
+                        <option value="City1">City 1</option>
+                        <option value="City2">City 2</option>
+                        <option value="City3">City 3</option>
+                        <option value="City4">City 4</option>
+                    </select>
+                </div>
+    
+                <!-- Step 2: Select Photographer -->
+                <div class="form-group">
+                    <label for="photographer">Select Photographer</label>
+                    <select class="form-control" id="photographer" onchange="checkAvailability()">
+                        <option value="">Select a photographer</option>
+                    </select>
+                </div>
+    
+                <div id="availabilityStatus"></div>
+    
+                <!-- Step 3: Photographer Portfolio -->
+                <div id="portfolio" class="form-group row">
+                </div>
+    
+                <!-- Step 4: Select Moment -->
+                <div class="form-group">
+                    <label for="moment">Which moment do you want to capture?</label>
+                    <select class="form-control" id="moment" onchange="loadOptions()">
+                        <option value="">Select a moment</option>
+                        <option value="preWedding">Pre Wedding</option>
+                        <option value="familyShoot">Family Shoot</option>
+                        <option value="graduationShoot">Graduation Shoot</option>
+                        <option value="maternityShoot">Maternity Shoot</option>
+                        <option value="holidayShoot">Holiday Shoot</option>
+                    </select>
+                </div>
+    
+                <div id="locationOptions" class="form-group">
+                </div>
+    
+                <!-- Step 5: Select Package -->
+                <div id="packages" class="form-group row">
+                    <div class="col-sm-4">
+                        <div class="rounded-box" onclick="selectPackage('1 hour', 100)">
+                            <p>1 Hour</p>
+                            <p>$100</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="rounded-box" onclick="selectPackage('2 hours', 180)">
+                            <p>2 Hours</p>
+                            <p>$180</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="rounded-box" onclick="selectPackage('3 hours', 250)">
+                            <p>3 Hours</p>
+                            <p>$250</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Step 6: Summary and Total Price -->
+                <div id="summary" class="form-group">
+                </div>
+    
+                <!-- Step 7: Gatcha Discount -->
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="playGatcha()">Play Gatcha for Discount</button>
+                    <div id="gatchaResult"></div>
+                </div>
+    
+                <!-- Step 8: Confirm Payment -->
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" onclick="confirmPayment()">Confirm Payment</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>About Us</h5>
+                    <p>We are a team of professional photographers dedicated to capturing your special moments with
+                        high-quality photos and exceptional service.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p> <img src="./assets/logo-photologue.png" alt="logo-photologue" class="logo" srcset=""> All rights
+                reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function loadPhotographers() {
+            const city = document.getElementById('city').value;
+            const photographerSelect = document.getElementById('photographer');
+            photographerSelect.innerHTML = '<option value="">Select a photographer</option>';
+
+            if (city) {
+                const photographers = {
+                    City1: ['Photographer 1A', 'Photographer 1B'],
+                    City2: ['Photographer 2A', 'Photographer 2B'],
+                    City3: ['Photographer 3A', 'Photographer 3B'],
+                    City4: ['Photographer 4A', 'Photographer 4B']
+                };
+
+                photographers[city].forEach(photographer => {
+                    const option = document.createElement('option');
+                    option.value = photographer;
+                    option.text = photographer;
+                    photographerSelect.add(option);
+                });
+            }
+        }
+
+        function checkAvailability() {
+            const availabilityStatus = document.getElementById('availabilityStatus');
+            availabilityStatus.innerHTML = '';
+
+            if (document.getElementById('photographer').value) {
+                const available = Math.random() >= 0.5;
+                const status = document.createElement('p');
+                status.classList.add(available ? 'available' : 'unavailable');
+                status.textContent = available ? 'Available ✔️' : 'Unavailable ❌';
+                availabilityStatus.appendChild(status);
+
+                if (available) {
+                    loadPortfolio();
+                }
+            }
+        }
+
+        function loadPortfolio() {
+            const portfolio = document.getElementById('portfolio');
+            portfolio.innerHTML = '';
+
+            for (let i = 1; i <= 3; i++) {
+                const img = document.createElement('img');
+                img.src = `https://via.placeholder.com/150?text=Photo+${i}`;
+                img.classList.add('col-sm-4');
+                portfolio.appendChild(img);
+            }
+        }
+
+        function loadOptions() {
+            const moment = document.getElementById('moment').value;
+            const locationOptions = document.getElementById('locationOptions');
+            locationOptions.innerHTML = '';
+
+            if (moment === 'graduationShoot' || moment === 'maternityShoot' || moment === 'familyShoot') {
+                addStudioOptions(locationOptions);
+            } else if (moment === 'preWedding' || moment === 'holidayShoot') {
+                addLocationOptions(locationOptions);
+            }
+        }
+
+        function addStudioOptions(container) {
+            const studios = [
+                { name: 'Studio 1', location: 'https://maps.google.com/?q=Studio+1' },
+                { name: 'Studio 2', location: 'https://maps.google.com/?q=Studio+2' },
+                { name: 'Studio 3', location: 'https://maps.google.com/?q=Studio+3' }
+            ];
+
+            studios.forEach(studio => {
+                const row = document.createElement('div');
+                row.classList.add('row');
+
+                const col1 = document.createElement('div');
+                col1.classList.add('col-sm-6');
+                col1.textContent = studio.name;
+
+                const col2 = document.createElement('div');
+                col2.classList.add('col-sm-6');
+                const link = document.createElement('a');
+                link.href = studio.location;
+                link.textContent = 'View on Google Maps';
+                link.target = '_blank';
+                col2.appendChild(link);
+
+                row.appendChild(col1);
+                row.appendChild(col2);
+                container.appendChild(row);
+            });
+        }
+
+        function addLocationOptions(container) {
+            const locations = [
+                { name: 'Location 1', location: 'https://maps.google.com/?q=Location+1' },
+                { name: 'Location 2', location: 'https://maps.google.com/?q=Location+2' },
+                { name: 'Location 3', location: 'https://maps.google.com/?q=Location+3' }
+            ];
+
+            locations.forEach(location => {
+                const row = document.createElement('div');
+                row.classList.add('row');
+
+                const col1 = document.createElement('div');
+                col1.classList.add('col-sm-6');
+                col1.textContent = location.name;
+
+                const col2 = document.createElement('div');
+                col2.classList.add('col-sm-6');
+                const link = document.createElement('a');
+                link.href = location.location;
+                link.textContent = 'View on Google Maps';
+                link.target = '_blank';
+                col2.appendChild(link);
+
+                row.appendChild(col1);
+                row.appendChild(col2);
+                container.appendChild(row);
+            });
+        }
+
+        function selectPackage(duration, price) {
+            const packages = document.querySelectorAll('.rounded-box');
+            packages.forEach(pkg => pkg.classList.remove('selected'));
+
+            event.currentTarget.classList.add('selected');
+            document.getElementById('summary').innerHTML = `
+                <h4>Summary</h4>
+                <p>City: ${document.getElementById('city').value}</p>
+                <p>Photographer: ${document.getElementById('photographer').value}</p>
+                <p>Moment: ${document.getElementById('moment').value}</p>
+                <p>Package: ${duration}</p>
+                <p>Total Price: $${price}</p>
+            `;
+        }
+
+        function playGatcha() {
+            const discounts = [0, 10, 25, 30];
+            const result = discounts[Math.floor(Math.random() * discounts.length)];
+            const gatchaResult = document.getElementById('gatchaResult');
+            gatchaResult.innerHTML = `You ${result > 0 ? 'won' : 'did not win'} a discount! ${result > 0 ? 'Discount: ' + result + '%' : ''}`;
+        }
+
+        function confirmPayment() {
+            if (confirm('Do you want to confirm the payment?')) {
+                window.location.href = 'https://wa.me/YourPhotographerNumber';
+            }
+        }
+    </script>
+</body>
+
+</html>

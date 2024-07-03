@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photologue - Portfolio/Gallery</title>
+    <link rel="icon" type="image/png" href="./assets/favicon/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white
+        }
+
+        .header {
+            background-size: cover;
+            background-position: center;
+            color: black;
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 50px 15px;
+        }
+
+        .gallery-img {
+            height: 500px;
+            width: 320px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
+        <a class="navbar-brand" href="#"><img src="./assets/logo-photologue.png" alt="logo-photologue" class="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="./home.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="./photographer.html">Photographer</a></li>
+                <li class="nav-item"><a class="nav-link" href="./galery.html">Portfolio/Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="./booking.html">Booking</a></li>
+                <li class="nav-item"><a class="nav-link" href="./location.html">Locations</a></li>
+                <li class="nav-item"><a class="nav-link" href="./about-us.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Portfolio/Gallery Content -->
+    <div class="header">
+        <h1>Portfolio/Gallery</h1>
+        <p>Welcome to Photologue, your premier photography service</p>
+    </div>
+
+    <section class="background">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="photographerSelect">Choose a photographer :</label>
+                    <select id="photographerSelect" class="form-control">
+                        <option value="" selected disabled>Select a photographer</option>
+                        <option value="astri">Astri - @astri</option>
+                        <option value="budi">Budi - @budi</option>
+                        <option value="caca">Caca - @caca</option>
+                        <option value="dinda">Dinda - @dinda</option>
+                        <option value="egy">Egy - @egy</option>
+                        <option value="faisal">Faisal - @faisal</option>
+                    </select>
+                </div>
+            </div>
+            <div id="portfolio" class="row mt-4">
+                <!-- Portfolio images akan tampil disini-->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>About Us</h5>
+                    <p>We are a team of professional photographers dedicated to capturing your special moments with
+                        high-quality photos and exceptional service.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p> <img src="./assets/logo-photologue.png" alt="logo-photologue" class="logo"> All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const photographers = {
+            astri: [
+                './assets/portfolio/portfolioAstri1.jpg',
+                './assets/portfolio/portfolioAstri2.jpg',
+                './assets/portfolio/portfolioAstri3.jpg'
+            ],
+            budi: [
+                './assets/portfolio/portfolioBudi1.jpg',
+                './assets/portfolio/portfolioBudi2.jpg',
+                './assets/portfolio/portfolioBudi3.jpg'
+            ],
+            caca: [
+                './assets/portfolio/portfolioCaca1.jpg',
+                './assets/portfolio/portfolioCaca2.jpg',
+                './assets/portfolio/portfolioCaca3.jpg'
+            ],
+            dinda: [
+                './assets/portfolio/portfolioDinda1.jpg',
+                './assets/portfolio/portfolioDinda2.jpg',
+                './assets/portfolio/portfolioDinda3.jpg'
+            ],
+            egy: [
+                './assets/portfolio/portfolioEgy1.jpg',
+                './assets/portfolio/portfolioEgy2.jpg',
+                './assets/portfolio/portfolioEgy3.jpg'
+            ],
+            faisal: [
+                './assets/portfolio/portfolioFaisal1.jpg',
+                './assets/portfolio/portfolioFaisal2.jpg',
+                './assets/portfolio/portfolioFaisal3.jpg'
+            ]
+        };
+
+        document.getElementById('photographerSelect').addEventListener('change', function() {
+            const selectedPhotographer = this.value;
+            const portfolioDiv = document.getElementById('portfolio');
+            portfolioDiv.innerHTML = '';
+
+            if (photographers[selectedPhotographer]) {
+                photographers[selectedPhotographer].forEach(imageUrl => {
+                    const colDiv = document.createElement('div');
+                    colDiv.className = 'col-md-4';
+                    const img = document.createElement('img');
+                    img.src = imageUrl;
+                    img.className = 'img-fluid gallery-img';
+                    colDiv.appendChild(img);
+                    portfolioDiv.appendChild(colDiv);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
