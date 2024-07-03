@@ -99,7 +99,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Budi</h5>
                             <img src="./assets/photographer/budi.jpg" class="img-fluid rounded photographer-img mb-3" alt="Budi">
-                            <p class="card-text">Location: Bandung</p>
+                            <p class="card-text">Location: Jakarta</p>
                             <p class="card-text">Instagram: @budi</p>
                             <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
                             <a href="#" class="card-link Calendar-link">Calendar</a>
@@ -111,7 +111,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Caca</h5>
                             <img src="./assets/photographer/caca.jpg" class="img-fluid rounded photographer-img mb-3" alt="Caca">
-                            <p class="card-text">Location: Surabaya</p>
+                            <p class="card-text">Location: Jogja</p>
                             <p class="card-text">Instagram: @caca</p>
                             <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
                             <a href="#" class="card-link Calendar-link">Calendar</a>
@@ -147,7 +147,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Faisal</h5>
                             <img src="./assets/photographer/faisal.jpg" class="img-fluid rounded photographer-img mb-3" alt="Faisal">
-                            <p class="card-text">Location: Lombok</p>
+                            <p class="card-text">Location: Bali</p>
                             <p class="card-text">Instagram: @faisal</p>
                             <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
                             <a href="#" class="card-link Calendar-link">Calendar</a>
@@ -228,10 +228,8 @@
         $(document).ready(function() {
             $('.Calendar-link').on('click', function() {
                 var photographerId = $(this).data('id');
-                // Here you can make an AJAX call to fetch the availability data based on the photographerId
-                // For demonstration, we will simply show the modal with a sample calendar
-
-                $('#calendar').fullCalendar('destroy'); // Destroy previous calendar instance
+                
+                $('#calendar').fullCalendar('destroy'); 
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev,next today',

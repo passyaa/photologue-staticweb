@@ -83,23 +83,21 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="city-select">City :</label>
-                        <select id="city-select" class="form-control">
-                            <option value="">Select a city</option>
-                            <option value="jakarta">Jakarta</option>
-                            <option value="bandung">Bandung</option>
-                            <option value="surabaya">Surabaya</option>
-                            <option value="jogja">Jogja</option>
-                            <option value="bali">Bali</option>
-                            <option value="lombok">Lombok</option>
+                        <label for="city-select-photographer">City :</label>
+                        <select id="city-select-photographer" class="form-control" onchange="listPhotographerName()">
+                            <option value="">Select City</option>
+                            <option value="Jakarta">Jakarta</option>
+                            <option value="Jogja">Jogja</option>
+                            <option value="Bali">Bali</option>
                         </select>
                     </div>
-                    <div class="form-group" id="photographer-container" style="display:none;">
-                        <label for="photographer-select">Photographer Name:</label>
+                    <div class="form-group" id="photographer-container">
+                        <label for="photographer-select">Photographer Name :</label>
                         <select id="photographer-select" class="form-control">
+                            <option value="">Select Photographer</option>
                         </select>
                     </div>
-                    <button id="show-location" class="btn btn-primary mt-3">Show Location</button>
+                    <button id="show-location-photographer" class="btn btn-primary" onclick="showLocationPhotographer()">Show Location</button>
                 </div>
                 <div class="col-md-6">
                     <div class="map-container">
@@ -121,16 +119,20 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="city-select-studio">City Name:</label>
-                        <select id="city-select-studio" class="form-control">
-                            <option value="">Select a city</option>
-                            <option value="jakarta">Jakarta</option>
-                            <option value="bandung">Bandung</option>
-                            <option value="surabaya">Surabaya</option>
-                            <option value="jogja">Jogja</option>
-                            <option value="bali">Bali</option>
-                            <option value="lombok">Lombok</option>
+                        <select id="city-select-studio" class="form-control" onchange="listStudio()">
+                            <option value="">Select City</option>
+                            <option value="Jakarta">Jakarta</option>
+                            <option value="Jogja">Jogja</option>
+                            <option value="Bali">Bali</option>
                         </select>
                     </div>
+                    <div class="form-group" id="studio-container">
+                        <label for="studio-select">Studio Photo :</label>
+                        <select id="studio-select" class="form-control">
+                            <option value="">Select Studio Photo</option>
+                        </select>
+                    </div>
+                    <button id="show-location-studio" class="btn btn-primary" onclick="showLocationStudio()" >Show Location</button>
                 </div>
                 <div class="col-md-6">
                     <div class="map-container">
@@ -149,7 +151,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h5>About Us</h5>
-                    <p>We are a team of professional photographers dedicated to capturing your special moments with
+                    <p>We are team of professional photographers dedicated to capturing your special moments with
                         high-quality photos and exceptional service.</p>
                 </div>
                 <div class="col-md-6">
@@ -173,88 +175,126 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        const citySelect = document.getElementById('city-select');
-        const photographerSelect = document.getElementById('photographer-select');
-        const photographerContainer = document.getElementById('photographer-container');
-        const photographerMap = document.getElementById('photographer-map');
-        const showLocationButton = document.getElementById('show-location');
+        // const citySelect = document.getElementById("city-select");
+        // const photographerSelect = document.getElementById("photographer-select");
+        // const photographerContainer = document.getElementById("photographer-container");
+        // const photographerMap = document.getElementById("photographer-map");
+        // const showLocationButtonPhotographer = document.getElementById("show-location-photographer");
 
-        const locations = {
-            "jakarta": {
-                "astri": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1983.6845434902842!2d106.81663561603244!3d-6.199449695493537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e6d5d9d95b%3A0xf8a3e3e7a1f1c2b9!2sTaman%20Menteng!5e0!3m2!1sen!2sid!4v1602110021843!5m2!1sen!2sid",
-                "wijaya": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.6229234076586!2d106.80880250959354!3d-6.135200667577343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3bc4b5d416d%3A0x4a8d12f702d80d5d!2sKota%20Tua%20Jakarta!5e0!3m2!1sen!2sid!4v1602110065898!5m2!1sen!2sid"
-            },
-            "bandung": {
-                "budi": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7137059266343!2d110.37052871523448!3d-7.801860994365918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5911e3019305%3A0xf351d9b72b5e890!2sTaman%20Sari!5e0!3m2!1sen!2sid!4v1602110224416!5m2!1sen!2sid",
-                "sari": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.712355542889!2d110.36607841523449!3d-7.802011494365949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5910db95a38b%3A0x80e3cf3e40e1a47a!2sKeraton%20Yogyakarta!5e0!3m2!1sen!2sid!4v1602110265982!5m2!1sen!2sid"
-            },
-            "surabaya": {
-                "caca": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1974.6272781796624!2d112.75208661524305!3d-7.257472795168762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbdc07e47a47%3A0xbcd0de8c61c74b41!2sTaman%20Bungkul!5e0!3m2!1sen!2sid!4v1602110302489!5m2!1sen!2sid",
-                "sinta": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1975.5907420285286!2d112.73985781524246!3d-7.239968095177768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb9b8c1b329f%3A0xb32a3bfc0ea3dd91!2sJembatan%20Merah%20Plaza!5e0!3m2!1sen!2sid!4v1602110346123!5m2!1sen!2sid"
-            },
-            "jogja": {
-                "dinda": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7137059266343!2d110.37052871523448!3d-7.801860994365918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5911e3019305%3A0xf351d9b72b5e890!2sTaman%20Sari!5e0!3m2!1sen!2sid!4v1602110224416!5m2!1sen!2sid",
-                "sari": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.712355542889!2d110.36607841523449!3d-7.802011494365949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5910db95a38b%3A0x80e3cf3e40e1a47a!2sKeraton%20Yogyakarta!5e0!3m2!1sen!2sid!4v1602110265982!5m2!1sen!2sid"
-            },
-            "bali": {
-                "egy": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3187.2366480132376!2d116.83883771523037!3d-1.2422193339987537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14761921c35f7%3A0xf881e7a262a2a19f!2sTaman%20Bekapai!5e0!3m2!1sen!2sid!4v1602110143011!5m2!1sen!2sid",
-                "rina": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15925.860042207586!2d116.83104215120424!3d-1.267152962671509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14821b8d3c2cf%3A0x5c70d5e1b8c4e7a8!2sPantai%20Kemala!5e0!3m2!1sen!2sid!4v1602110184758!5m2!1sen!2sid"
-            },
-            "lombok": {
-                "faisal": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3187.2366480132376!2d116.83883771523037!3d-1.2422193339987537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14761921c35f7%3A0xf881e7a262a2a19f!2sTaman%20Bekapai!5e0!3m2!1sen!2sid!4v1602110143011!5m2!1sen!2sid",
-                "rina": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15925.860042207586!2d116.83104215120424!3d-1.267152962671509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14821b8d3c2cf%3A0x5c70d5e1b8c4e7a8!2sPantai%20Kemala!5e0!3m2!1sen!2sid!4v1602110184758!5m2!1sen!2sid"
-            }
+        // Photographer Code
+        const locationsPhotographer = [
+            { city: "Jakarta", photographer: [
+                { name: "Astri", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.24102052208!2d106.7471170209447!3d-6.229740108077189!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1720027195892!5m2!1sid!2sid" },
+                { name: "Budi", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.24102052208!2d106.7471170209447!3d-6.229740108077189!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1720027195892!5m2!1sid!2sid" }
+            ]},
+            { city: "Jogja", photographer: [
+                { name: "Caca", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31622.985314746264!2d110.3542453669268!3d-7.803249951880556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787bd5b6bc5%3A0x21723fd4d3684f71!2sYogyakarta%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1720027222587!5m2!1sid!2sid" },
+                { name: "Dinda", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31622.985314746264!2d110.3542453669268!3d-7.803249951880556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787bd5b6bc5%3A0x21723fd4d3684f71!2sYogyakarta%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1720027222587!5m2!1sid!2sid" }
+            ]},
+            { city: "Bali", photographer: [
+                { name: "Egy", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d505145.87573797145!2d114.74192991855412!3d-8.45533347717156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd141d3e8100fa1%3A0x24910fb14b24e690!2sBali!5e0!3m2!1sid!2sid!4v1720027281573!5m2!1sid!2sid" },
+                { name: "Faisal", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d505145.87573797145!2d114.74192991855412!3d-8.45533347717156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd141d3e8100fa1%3A0x24910fb14b24e690!2sBali!5e0!3m2!1sid!2sid!4v1720027281573!5m2!1sid!2sid" }
+            ]}
+        ];
+
+        const citySelectPhotographer = document.getElementById("city-select-photographer");
+        const photographerSelect = document.getElementById("photographer-select");
+        const photographerMap = document.getElementById("photographer-map");
+
+        function listPhotographerName() {
+            const selectedCity = citySelectPhotographer.value;
+            photographerSelect.innerHTML = "<option>Select Photographer</option>";
+            locationsPhotographer.forEach(location => {
+                if (location.city === selectedCity) {
+                    location.photographer.forEach(namaPhotographer => {
+                        const option = document.createElement("option");
+                        option.value = namaPhotographer.name;
+                        option.textContent = namaPhotographer.name;
+                        photographerSelect.appendChild(option);      
+                    });
+                }
+            });
         };
 
-        citySelect.addEventListener('change', function () {
-            const city = this.value;
-            photographerSelect.innerHTML = '';
+        function showLocationPhotographer() {
+            const selectedCity = citySelectPhotographer.value;
+            const selectedPhotographer = photographerSelect.value;
+            console.log("selectedCity", selectedCity);
+            console.log("selectedPhotographer", selectedPhotographer);
 
-            if (city) {
-                const photographers = Object.keys(locations[city]);
-                photographers.forEach(name => {
-                    const option = document.createElement('option');
-                    option.value = name;
-                    option.textContent = name.charAt(0).toUpperCase() + name.slice(1);
-                    photographerSelect.appendChild(option);
+            if (selectedCity && selectedPhotographer) {
+                locationsPhotographer.forEach(location => {
+                    if (location.city === selectedCity) {
+                        location.photographer.forEach(namaPhotographer => {
+                            if (namaPhotographer.name === selectedPhotographer) {
+                                photographerMap.src = namaPhotographer.url;
+                                console.log("namaPhotographer.url", namaPhotographer.url);
+                            }
+                        });
+                    }
                 });
-                photographerContainer.style.display = 'block';
             } else {
-                photographerContainer.style.display = 'none';
+                alert("Please Select City and Photographer");
             }
-        });
 
-        showLocationButton.addEventListener('click', function () {
-            const city = citySelect.value;
-            const photographer = photographerSelect.value;
-            if (city && photographer) {
-                photographerMap.src = locations[city][photographer];
-            } else {
-                alert("Please select both a city and a photographer.");
-            }
-        });
+        };
 
         // Studio Photo Code
-        const citySelectStudio = document.getElementById('city-select-studio');
-        const studioMap = document.getElementById('studio-map');
+        const locationsStudio = [
+            { city: "Jakarta", studio: [
+                { name: "Skala Rental Studio", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3790240479716!2d106.77638227593617!3d-6.213641593774297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f700502c275f%3A0xa1ee4736cc5b5e6e!2sSkala%20Rental%20Studio!5e0!3m2!1sid!2sid!4v1720026454828!5m2!1sid!2sid" },
+                { name: "Louvre Photography", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.065665092442!2d106.8052294853507!3d-6.255079677575531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f18851c5e953%3A0x70a8f2a9581299ed!2sLouvre%20Photography!5e0!3m2!1sid!2sid!4v1720026500428!5m2!1sid!2sid" }
+            ]},
+            { city: "Jogja", studio: [
+                { name: "Studio 9 Yogyakarta", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.4073008770547!2d110.31868697594632!3d-7.639272792376661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af505aa88dc99%3A0x2a89277cb57d2c6c!2sStudio%209%20Creative%20House!5e0!3m2!1sid!2sid!4v1720026550444!5m2!1sid!2sid" },
+                { name: "Vasco Studio", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22218.605573823763!2d110.3738467606235!3d-7.787587410318588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59a252bc95c7%3A0xa587b57668d2738d!2sVASCO%20PHOTO%20STUDIO!5e0!3m2!1sid!2sid!4v1720026616973!5m2!1sid!2sid" }
+            ]},
+            { city: "Bali", studio: [
+                { name: "Anugrah Studio", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52221.490702600844!2d115.158183896701!3d-8.67584420407576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd240ef19a75835%3A0xaf2401f9673a3389!2sAnugrah%20Photo%20Studio!5e0!3m2!1sid!2sid!4v1720026702549!5m2!1sid!2sid" },
+                { name: "Umemo Studio", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52228.482214524214!2d115.14937668415867!3d-8.625427749574763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23fed0b05d347%3A0x67384496df2b85f3!2sUMEMO%20Self%20Photo%20Studio!5e0!3m2!1sid!2sid!4v1720026733261!5m2!1sid!2sid" }
+            ]}
+        ];
 
-        const locationsStudio = {
-            "jakarta": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1983.6845434902842!2d106.81663561603244!3d-6.199449695493537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e6d5d9d95b%3A0xf8a3e3e7a1f1c2b9!2sTaman%20Menteng!5e0!3m2!1sen!2sid!4v1602110021843!5m2!1sen!2sid",
-            "bandung": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3187.2366480132376!2d116.83883771523037!3d-1.2422193339987537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14761921c35f7%3A0xf881e7a262a2a19f!2sTaman%20Bekapai!5e0!3m2!1sen!2sid!4v1602110143011!5m2!1sen!2sid",
-            "surabaya": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7137059266343!2d110.37052871523448!3d-7.801860994365918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5911e3019305%3A0xf351d9b72b5e890!2sTaman%20Sari!5e0!3m2!1sen!2sid!4v1602110224416!5m2!1sen!2sid",
-            "jogja": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1974.6272781796624!2d112.75208661524305!3d-7.257472795168762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbdc07e47a47%3A0xbcd0de8c61c74b41!2sTaman%20Bungkul!5e0!3m2!1sen!2sid!4v1602110302489!5m2!1sen!2sid",
-            "bali": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1974.6272781796624!2d112.75208661524305!3d-7.257472795168762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbdc07e47a47%3A0xbcd0de8c61c74b41!2sTaman%20Bungkul!5e0!3m2!1sen!2sid!4v1602110302489!5m2!1sen!2sid",
-            "lombok": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1974.6272781796624!2d112.75208661524305!3d-7.257472795168762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbdc07e47a47%3A0xbcd0de8c61c74b41!2sTaman%20Bungkul!5e0!3m2!1sen!2sid!4v1602110302489!5m2!1sen!2sid"
+        const citySelectStudio = document.getElementById("city-select-studio");
+        const studioSelect = document.getElementById("studio-select");
+        const studioMap = document.getElementById("studio-map");
+
+        function listStudio() {
+            const selectedCity = citySelectStudio.value;
+            studioSelect.innerHTML = "<option>Select Studio Photo</option>";
+            locationsStudio.forEach(location => {
+                if (location.city === selectedCity) {
+                    location.studio.forEach(namaStudio => {
+                        const option = document.createElement("option");
+                        option.value = namaStudio.name;
+                        option.textContent = namaStudio.name;
+                        studioSelect.appendChild(option);      
+                    });
+                }
+            });
         };
 
-        citySelectStudio.addEventListener('change', function () {
-            const city = this.value;
-            if (city) {
-                studioMap.src = locationsStudio[city];
+        function showLocationStudio() {
+            const selectedCity = citySelectStudio.value;
+            const selectedStudio = studioSelect.value;
+            console.log("selectedCity", selectedCity);
+            console.log("selectedStudio", selectedStudio);
+            if (selectedCity && selectedStudio) {
+                locationsStudio.forEach(location => {
+                    if (location.city === selectedCity) {
+                        location.studio.forEach(namaStudio => {
+                            if (namaStudio.name === selectedStudio) {
+                                studioMap.src = namaStudio.url;
+                                console.log("namaStudio.url", namaStudio.url);
+                            }
+                        });
+                    }
+                });
             } else {
-                studioMap.src = "";
+                alert("Please Select City and Studio Photo");
             }
-        });
+            
+        }
 
     </script>
 </body>

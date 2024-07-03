@@ -75,14 +75,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="photographerSelect">Choose a photographer :</label>
-                    <select id="photographerSelect" class="form-control">
+                    <select id="photographerSelect" class="form-control" onchange="photographerSelect()">
                         <option value="" selected disabled>Select a photographer</option>
-                        <option value="astri">Astri - @astri</option>
-                        <option value="budi">Budi - @budi</option>
-                        <option value="caca">Caca - @caca</option>
-                        <option value="dinda">Dinda - @dinda</option>
-                        <option value="egy">Egy - @egy</option>
-                        <option value="faisal">Faisal - @faisal</option>
+                        <option value="astri">Astri - Location : Jakarta</option>
+                        <option value="budi">Budi - Location : Jakarta</option>
+                        <option value="caca">Caca - Location : Jogja</option>
+                        <option value="dinda">Dinda - Location : Jogja</option>
+                        <option value="egy">Egy - Location : Bali</option>
+                        <option value="faisal">Faisal - Location : Bali</option>
                     </select>
                 </div>
             </div>
@@ -153,8 +153,8 @@
             ]
         };
 
-        document.getElementById('photographerSelect').addEventListener('change', function() {
-            const selectedPhotographer = this.value;
+        function photographerSelect() {
+            const selectedPhotographer = document.getElementById("photographerSelect").value;
             const portfolioDiv = document.getElementById('portfolio');
             portfolioDiv.innerHTML = '';
 
@@ -164,12 +164,30 @@
                     colDiv.className = 'col-md-4';
                     const img = document.createElement('img');
                     img.src = imageUrl;
-                    img.className = 'img-fluid gallery-img';
+                    img.className = 'img-fluid gallery-img rounded';
                     colDiv.appendChild(img);
                     portfolioDiv.appendChild(colDiv);
                 });
             }
-        });
+        }
+
+        // document.getElementById('photographerSelect').addEventListener('change', function() {
+        //     const selectedPhotographer = this.value;
+        //     const portfolioDiv = document.getElementById('portfolio');
+        //     portfolioDiv.innerHTML = '';
+
+        //     if (photographers[selectedPhotographer]) {
+        //         photographers[selectedPhotographer].forEach(imageUrl => {
+        //             const colDiv = document.createElement('div');
+        //             colDiv.className = 'col-md-4';
+        //             const img = document.createElement('img');
+        //             img.src = imageUrl;
+        //             img.className = 'img-fluid gallery-img rounded';
+        //             colDiv.appendChild(img);
+        //             portfolioDiv.appendChild(colDiv);
+        //         });
+        //     }
+        // });
     </script>
 </body>
 

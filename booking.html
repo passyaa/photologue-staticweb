@@ -52,6 +52,44 @@
         .selected {
             background-color: #f0f0f0;
         }
+
+        .portfolio-img {
+            height: 400px;
+            width: 320px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .clickable-paragraph {
+            background-color: #fff;
+            border: 2px solid #007BFF;
+            padding: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .clickable-paragraph:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .photographer-box {
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .photographer-box:hover {
+            transform: scale(1.05);
+        }
+
+        .photographer-img {
+            height: 300px;
+            width: 320px;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -93,44 +131,59 @@
                     <label for="city">Select City</label>
                     <select class="form-control" id="city" onchange="loadPhotographers()">
                         <option value="">Select a city</option>
-                        <option value="City1">City 1</option>
-                        <option value="City2">City 2</option>
-                        <option value="City3">City 3</option>
-                        <option value="City4">City 4</option>
+                        <option value="Jakarta">Jakarta</option>
+                        <option value="Jogja">Jogja</option>
+                        <option value="Bali">Bali</option>
                     </select>
                 </div>
-    
+
                 <!-- Step 2: Select Photographer -->
                 <div class="form-group">
                     <label for="photographer">Select Photographer</label>
-                    <select class="form-control" id="photographer" onchange="checkAvailability()">
+                    <select class="form-control" id="photographer">
                         <option value="">Select a photographer</option>
                     </select>
                 </div>
-    
-                <div id="availabilityStatus"></div>
-    
-                <!-- Step 3: Photographer Portfolio -->
-                <div id="portfolio" class="form-group row">
-                </div>
-    
+
                 <!-- Step 4: Select Moment -->
                 <div class="form-group">
-                    <label for="moment">Which moment do you want to capture?</label>
-                    <select class="form-control" id="moment" onchange="loadOptions()">
+                    <label for="moment">Which moment do you want to capture ?</label>
+                    <select class="form-control" id="moment" >
                         <option value="">Select a moment</option>
-                        <option value="preWedding">Pre Wedding</option>
-                        <option value="familyShoot">Family Shoot</option>
-                        <option value="graduationShoot">Graduation Shoot</option>
-                        <option value="maternityShoot">Maternity Shoot</option>
-                        <option value="holidayShoot">Holiday Shoot</option>
+                        <option value="preWeddingShoot">Pre Wedding Photoshoot</option>
+                        <option value="familyShoot">Family Photoshoot</option>
+                        <option value="graduationShoot">Graduation Photoshoot</option>
+                        <option value="maternityShoot">Maternity Photoshoot</option>
+                        <option value="holidayShoot">Holiday Photoshoot</option>
                     </select>
                 </div>
-    
-                <div id="locationOptions" class="form-group">
+
+                <div class="form-group row">
+                    <!-- Step 3: Select Date -->
+                    <div class="col">
+                        <label for="date">Select Date</label>
+                        <input type="date" class="form-control" id="date" onchange="buttonRefresh()">
+                    </div>
+                    <!-- Step 4: Select Time -->
+                    <div class="col">
+                        <label for="time">Select Time</label>
+                        <input type="time" class="form-control" id="time" onchange="buttonRefresh()">
+                    </div>
                 </div>
-    
+
+                <!-- Step 5: Check Availability -->
+                <div class="form-group">
+                    <button id="buttonCheckAvailability" type="button" class="btn btn-success" onclick="checkAvailability()">Check Availability</button>
+                </div>
+
+                <div id="availabilityStatus"></div>
+
                 <!-- Step 5: Select Package -->
+                <label for="packageOptions">Choose Our Package</label>
+                <div id="packageOptions" class="form-group row"> 
+                </div>
+
+                Step 5: Select Package
                 <div id="packages" class="form-group row">
                     <div class="col-sm-4">
                         <div class="rounded-box" onclick="selectPackage('1 hour', 100)">
@@ -170,8 +223,6 @@
         </div>
     </section>
 
-    
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -209,119 +260,145 @@
 
             if (city) {
                 const photographers = {
-                    City1: ['Photographer 1A', 'Photographer 1B'],
-                    City2: ['Photographer 2A', 'Photographer 2B'],
-                    City3: ['Photographer 3A', 'Photographer 3B'],
-                    City4: ['Photographer 4A', 'Photographer 4B']
+                    Jakarta: ['Astri', 'Budi'],
+                    Jogja: ['Caca', 'Dinda'],
+                    Bali: ['Egy', 'Faisal'],
                 };
 
                 photographers[city].forEach(photographer => {
                     const option = document.createElement('option');
                     option.value = photographer;
                     option.text = photographer;
+                    option.className = 'portfolio-img col-md-4';
+                    option.id = "listPhotographer";
                     photographerSelect.add(option);
+
                 });
+                
             }
+
+
         }
+
+        function buttonRefresh() {
+            const buttonCheckAvailability = document.getElementById('buttonCheckAvailability');
+            buttonCheckAvailability.disabled = false;
+        }
+
 
         function checkAvailability() {
+            const city = document.getElementById('city').value;
+            const photographer = document.getElementById('photographer').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
             const availabilityStatus = document.getElementById('availabilityStatus');
+            const buttonCheckAvailability = document.getElementById('buttonCheckAvailability');
             availabilityStatus.innerHTML = '';
+            buttonCheckAvailability
 
-            if (document.getElementById('photographer').value) {
+            if (photographer && date && time) {
                 const available = Math.random() >= 0.5;
                 const status = document.createElement('p');
-                status.classList.add(available ? 'available' : 'unavailable');
-                status.textContent = available ? 'Available ✔️' : 'Unavailable ❌';
-                availabilityStatus.appendChild(status);
 
+                // console.log("available",available)
+                
                 if (available) {
-                    loadPortfolio();
+                    status.textContent = `Photographer ${photographer} is Available ✔️ On ${date} ${time} at ${city}`;
+                    loadOptions();
+                    buttonCheckAvailability.disabled = true;
+                } else {
+                    status.textContent = `Photographer ${photographer} is Unavailable ❌ On ${date} ${time} at ${city}`;
+                    buttonCheckAvailability.disabled = true;
                 }
+
+                availabilityStatus.appendChild(status);
+                
             }
+            
         }
 
-        function loadPortfolio() {
-            const portfolio = document.getElementById('portfolio');
-            portfolio.innerHTML = '';
+        // function loadPortfolio() {
+        //     const portfolio = document.getElementById('portfolio');
+        //     portfolio.innerHTML = '';
 
-            for (let i = 1; i <= 3; i++) {
-                const img = document.createElement('img');
-                img.src = `https://via.placeholder.com/150?text=Photo+${i}`;
-                img.classList.add('col-sm-4');
-                portfolio.appendChild(img);
-            }
-        }
+        //     for (let i = 1; i <= 3; i++) {
+        //         const img = document.createElement('img');
+        //         const randomNumber = Math.floor(Math.random() * 12) + 1;
+        //         img.src = "./assets/random-portfolio/" + randomNumber + ".jpg";         
+        //         img.className = 'portfolio-img col-md-4';
+        //         portfolio.appendChild(img);
+        //     }
+        // }
 
         function loadOptions() {
             const moment = document.getElementById('moment').value;
-            const locationOptions = document.getElementById('locationOptions');
-            locationOptions.innerHTML = '';
 
-            if (moment === 'graduationShoot' || moment === 'maternityShoot' || moment === 'familyShoot') {
-                addStudioOptions(locationOptions);
-            } else if (moment === 'preWedding' || moment === 'holidayShoot') {
-                addLocationOptions(locationOptions);
+            const graduationPackage = [
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
+            ];
+
+            const maternityPackage = [
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
+            ];
+
+            const familyPackage = [
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
+            ];
+
+            const preWeddingPackage = [
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
+            ];
+
+            const holidayPackage = [
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
+                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
+            ];
+
+            
+            if (moment === 'graduationShoot') {
+                packageOptions(graduationPackage);
+            } else if (moment === 'maternityShoot') {
+                packageOptions(maternityPackage);
+            } else if (moment === 'familyShoot') {
+                packageOptions(familyPackage);
+            } else if (moment === 'preWeddingShoot') {
+                packageOptions(preWeddingPackage);
+            } else if (moment === 'holidayShoot') {
+                packageOptions(holidayPackage);
             }
+
         }
 
-        function addStudioOptions(container) {
-            const studios = [
-                { name: 'Studio 1', location: 'https://maps.google.com/?q=Studio+1' },
-                { name: 'Studio 2', location: 'https://maps.google.com/?q=Studio+2' },
-                { name: 'Studio 3', location: 'https://maps.google.com/?q=Studio+3' }
-            ];
+        function packageOptions(packages) {
+            const packageOptions = document.getElementById('packageOptions');
+            packageOptions.innerHTML = '';
 
-            studios.forEach(studio => {
-                const row = document.createElement('div');
-                row.classList.add('row');
+            packages.forEach(package => {
+                let card = `
+                    <div class="col-md-4">
+                    <div class="card photographer-box" data-id="1">
+                        <div class="card-body">
+                            <h5 class="card-title">Astri</h5>
+                            <img src="./assets/photographer/astri.jpg" class="img-fluid rounded photographer-img mb-3" alt="Astri">
+                            <p class="card-text">Location: ${package.name}</p>
+                            <p class="card-text">Location: ${package.location}</p>
+                        </div>
+                    </div>
+                    </div>`;
 
-                const col1 = document.createElement('div');
-                col1.classList.add('col-sm-6');
-                col1.textContent = studio.name;
-
-                const col2 = document.createElement('div');
-                col2.classList.add('col-sm-6');
-                const link = document.createElement('a');
-                link.href = studio.location;
-                link.textContent = 'View on Google Maps';
-                link.target = '_blank';
-                col2.appendChild(link);
-
-                row.appendChild(col1);
-                row.appendChild(col2);
-                container.appendChild(row);
+                packageOptions.innerHTML += card;
             });
         }
 
-        function addLocationOptions(container) {
-            const locations = [
-                { name: 'Location 1', location: 'https://maps.google.com/?q=Location+1' },
-                { name: 'Location 2', location: 'https://maps.google.com/?q=Location+2' },
-                { name: 'Location 3', location: 'https://maps.google.com/?q=Location+3' }
-            ];
-
-            locations.forEach(location => {
-                const row = document.createElement('div');
-                row.classList.add('row');
-
-                const col1 = document.createElement('div');
-                col1.classList.add('col-sm-6');
-                col1.textContent = location.name;
-
-                const col2 = document.createElement('div');
-                col2.classList.add('col-sm-6');
-                const link = document.createElement('a');
-                link.href = location.location;
-                link.textContent = 'View on Google Maps';
-                link.target = '_blank';
-                col2.appendChild(link);
-
-                row.appendChild(col1);
-                row.appendChild(col2);
-                container.appendChild(row);
-            });
-        }
 
         function selectPackage(duration, price) {
             const packages = document.querySelectorAll('.rounded-box');
