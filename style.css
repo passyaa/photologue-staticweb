@@ -3,7 +3,6 @@
 .logo {
     width: 150px;
     height: auto;
-    padding-bottom: 20px;
 }
 
 /* navbar */
@@ -75,7 +74,7 @@ body {
     background-color: white;
     color: black;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 60px;
     padding-bottom: 20px;
 }
 .footer .footer-links {

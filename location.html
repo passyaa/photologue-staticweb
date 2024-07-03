@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white
+        }
+
         .map-container {
             position: relative;
             width: 100%;
@@ -31,7 +36,7 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
-        <a class="navbar-brand" href="#"><img src="/assets/logo-photologue.png" alt="logo-photologue" class="logo"></a>
+        <a class="navbar-brand" href="#"><img src="./assets/logo-photologue.png" alt="logo-photologue" class="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,9 +44,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="./home.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Photographer</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Portfolio/Gallery</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Booking</a></li>
+                <li class="nav-item"><a class="nav-link" href="./photographer.html">Photographer</a></li>
+                <li class="nav-item"><a class="nav-link" href="./galery.html">Portfolio/Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="./booking.html">Booking</a></li>
                 <li class="nav-item"><a class="nav-link" href="./location.html">Locations</a></li>
                 <li class="nav-item"><a class="nav-link" href="./about-us.html">About Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
@@ -80,7 +85,7 @@
                     <h3>Photographer Area</h3>
                     <div class="map-container">
                         <iframe id="photographer-map"
-                            src=""
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.8718246793383!2d106.91996517593647!3d-6.2805764937082875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d044a483ff3%3A0x7c20c17d8086d0da!2sBabys%20Care!5e0!3m2!1sen!2sus!4v1719944906327!5m2!1sen!2sus"
                             frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
                             tabindex="0"></iframe>
                     </div>
@@ -89,36 +94,30 @@
         </div>
     </section>
 
-    <!-- Studio Photo Location -->
+    <!-- Location Content -->
     <section class="features">
         <div class="container mt-5">
             <h1 class="text-center mb-5">Studio Photo Locations</h1>
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Select City & Photographer</h3>
+                    <h3>Select City</h3>
                     <div class="form-group">
-                        <label for="city-select">City :</label>
-                        <select id="city-select" class="form-control">
+                        <label for="city-select-studio">City Name:</label>
+                        <select id="city-select-studio" class="form-control">
                             <option value="">Select a city</option>
                             <option value="jakarta">Jakarta</option>
-                            <option value="bali">Bali</option>
+                            <option value="balikpapan">Balikpapan</option>
                             <option value="jogja">Jogja</option>
                             <option value="surabaya">Surabaya</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="photographer-container" style="display:none;">
-                        <label for="photographer-select">Photographer Name:</label>
-                        <select id="photographer-select" class="form-control">
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h3>Studio Photo Location</h3>
                     <div class="map-container">
-                        <iframe id="photographer-map"
-                            src=""
-                            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-                            tabindex="0"></iframe>
+                        <iframe id="studio-map"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.8718246793383!2d106.91996517593647!3d-6.2805764937082875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d044a483ff3%3A0x7c20c17d8086d0da!2sBabys%20Care!5e0!3m2!1sen!2sus!4v1719944906327!5m2!1sen!2sus"
+                            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                     </div>
                 </div>
             </div>
@@ -204,6 +203,28 @@
                 photographerMap.src = locations[city][photographer];
             }
         });
+
+
+        // Studio Photo Code
+        const citySelectStudio = document.getElementById('city-select-studio');
+        const studioMap = document.getElementById('studio-map');
+
+        const locationsStudio = {
+            "jakarta": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1983.6845434902842!2d106.81663561603244!3d-6.199449695493537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e6d5d9d95b%3A0xf8a3e3e7a1f1c2b9!2sTaman%20Menteng!5e0!3m2!1sen!2sid!4v1602110021843!5m2!1sen!2sid",
+            "balikpapan": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3187.2366480132376!2d116.83883771523037!3d-1.2422193339987537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df14761921c35f7%3A0xf881e7a262a2a19f!2sTaman%20Bekapai!5e0!3m2!1sen!2sid!4v1602110143011!5m2!1sen!2sid",
+            "jogja": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7137059266343!2d110.37052871523448!3d-7.801860994365918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5911e3019305%3A0xf351d9b72b5e890!2sTaman%20Sari!5e0!3m2!1sen!2sid!4v1602110224416!5m2!1sen!2sid",
+            "surabaya": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1974.6272781796624!2d112.75208661524305!3d-7.257472795168762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbdc07e47a47%3A0xbcd0de8c61c74b41!2sTaman%20Bungkul!5e0!3m2!1sen!2sid!4v1602110302489!5m2!1sen!2sid"
+        };
+
+        citySelectStudio.addEventListener('change', function () {
+            const city = this.value;
+            if (city) {
+                studioMap.src = locationsStudio[city];
+            } else {
+                studioMap.src = "";
+            }
+        });
+
     </script>
 </body>
 
