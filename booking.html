@@ -10,68 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white
-        }
-
-        .header {
-            background-size: cover;
-            background-position: center;
-            color: black;
-            text-align: center;
-            padding-top: 100px;
-            padding-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            font-weight: bold;
-        }
-
-        .content {
-            padding: 50px 15px;
-        }
-
-        .available {
-            color: green;
-        }
-
-        .unavailable {
-            color: red;
-        }
-
-        .rounded-box {
-            border: 1px solid #ccc;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-        }
-
         .selected {
             background-color: #f0f0f0;
-        }
-
-        .portfolio-img {
-            height: 400px;
-            width: 320px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-
-        .clickable-paragraph {
-            background-color: #fff;
-            border: 2px solid #007BFF;
-            padding: 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .clickable-paragraph:hover {
-            background-color: #007BFF;
-            color: #fff;
         }
 
         .photographer-box {
@@ -79,6 +19,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
+            cursor: pointer;
         }
 
         .photographer-box:hover {
@@ -90,6 +31,15 @@
             width: 320px;
             object-fit: cover;
         }
+
+        .summary-box {
+            background-color: #f0f0f0;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+            padding: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 
@@ -116,7 +66,7 @@
         </div>
     </nav>
 
-    <!-- About Us Content -->
+    <!-- Booking Photographer Content -->
     <div class="header">
         <h1>Booking Photographer</h1>
         <p>Welcome to Photologue, your premier photography service</p>
@@ -126,6 +76,7 @@
         <div class="container mt-5">
             <h2>Photographer Booking</h2>
             <form id="bookingForm">
+
                 <!-- Step 1: Select City -->
                 <div class="form-group">
                     <label for="city">Select City</label>
@@ -150,11 +101,11 @@
                     <label for="moment">Which moment do you want to capture ?</label>
                     <select class="form-control" id="moment" >
                         <option value="">Select a moment</option>
-                        <option value="preWeddingShoot">Pre Wedding Photoshoot</option>
-                        <option value="familyShoot">Family Photoshoot</option>
-                        <option value="graduationShoot">Graduation Photoshoot</option>
-                        <option value="maternityShoot">Maternity Photoshoot</option>
-                        <option value="holidayShoot">Holiday Photoshoot</option>
+                        <option value="Pre Wedding Photoshoot">Pre Wedding Photoshoot</option>
+                        <option value="Family Photoshoot">Family Photoshoot</option>
+                        <option value="Graduation Photoshoot">Graduation Photoshoot</option>
+                        <option value="Maternity Photoshoot">Maternity Photoshoot</option>
+                        <option value="Holiday Photoshoot">Holiday Photoshoot</option>
                     </select>
                 </div>
 
@@ -173,50 +124,60 @@
 
                 <!-- Step 5: Check Availability -->
                 <div class="form-group">
+                    <br>
                     <button id="buttonCheckAvailability" type="button" class="btn btn-success" onclick="checkAvailability()">Check Availability</button>
                 </div>
 
                 <div id="availabilityStatus"></div>
 
-                <!-- Step 5: Select Package -->
-                <label for="packageOptions">Choose Our Package</label>
-                <div id="packageOptions" class="form-group row"> 
-                </div>
-
-                Step 5: Select Package
+                <!-- Step 6: Select Package -->
                 <div id="packages" class="form-group row">
-                    <div class="col-sm-4">
-                        <div class="rounded-box" onclick="selectPackage('1 hour', 100)">
-                            <p>1 Hour</p>
-                            <p>$100</p>
+                    <div class="col-md-4">
+                        <div class="card photographer-box">
+                            <div class="card-body" onclick="selectPackage('1 hour', 500)">
+                                <h5 class="card-title">Package 1</h5>
+                                <img src="./assets/random-portfolio/2.jpg" class="img-fluid rounded photographer-img mb-3" alt="Astri">
+                                <p class="card-text">Hours : 1 Hour</p>
+                                <p class="card-text">Price : Rp 500.000</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="rounded-box" onclick="selectPackage('2 hours', 180)">
-                            <p>2 Hours</p>
-                            <p>$180</p>
+                    <div class="col-md-4">
+                        <div class="card photographer-box">
+                            <div class="card-body" onclick="selectPackage('2 hour', 750)">
+                                <h5 class="card-title">Package 2</h5>
+                                <img src="./assets/random-portfolio/7.jpg" class="img-fluid rounded photographer-img mb-3" alt="Astri">
+                                <p class="card-text">Hours : 2 Hours</p>
+                                <p class="card-text">Price : Rp 750.000</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="rounded-box" onclick="selectPackage('3 hours', 250)">
-                            <p>3 Hours</p>
-                            <p>$250</p>
+                    <div class="col-md-4">
+                        <div class="card photographer-box">
+                            <div class="card-body" onclick="selectPackage('3 hour', 1000)">
+                                <h5 class="card-title">Package 3</h5>
+                                <img src="./assets/random-portfolio/4.jpg" class="img-fluid rounded photographer-img mb-3" alt="Astri">
+                                <p class="card-text">Hours : 3 Hours</p>
+                                <p class="card-text">Price : Rp 1.000.000</p>
+                            </div>
                         </div>
                     </div>
                 </div>
     
-                <!-- Step 6: Summary and Total Price -->
+                <!-- Step 7: Summary and Total Price -->
                 <div id="summary" class="form-group">
                 </div>
     
-                <!-- Step 7: Gatcha Discount -->
+                <!-- Step 8: Gatcha Discount -->
                 <div class="form-group">
+                    <br>
                     <button type="button" class="btn btn-primary" onclick="playGatcha()">Play Gatcha for Discount</button>
                     <div id="gatchaResult"></div>
                 </div>
     
-                <!-- Step 8: Confirm Payment -->
+                <!-- Step 9: Confirm Payment And Talk to Photographer -->
                 <div class="form-group">
+                    <br>
                     <button type="button" class="btn btn-success" onclick="confirmPayment()">Confirm Payment</button>
                 </div>
             </form>
@@ -269,8 +230,6 @@
                     const option = document.createElement('option');
                     option.value = photographer;
                     option.text = photographer;
-                    option.className = 'portfolio-img col-md-4';
-                    option.id = "listPhotographer";
                     photographerSelect.add(option);
 
                 });
@@ -294,9 +253,8 @@
             const availabilityStatus = document.getElementById('availabilityStatus');
             const buttonCheckAvailability = document.getElementById('buttonCheckAvailability');
             availabilityStatus.innerHTML = '';
-            buttonCheckAvailability
 
-            if (photographer && date && time) {
+            if (city && photographer && date && time) {
                 const available = Math.random() >= 0.5;
                 const status = document.createElement('p');
 
@@ -304,7 +262,6 @@
                 
                 if (available) {
                     status.textContent = `Photographer ${photographer} is Available ✔️ On ${date} ${time} at ${city}`;
-                    loadOptions();
                     buttonCheckAvailability.disabled = true;
                 } else {
                     status.textContent = `Photographer ${photographer} is Unavailable ❌ On ${date} ${time} at ${city}`;
@@ -313,118 +270,81 @@
 
                 availabilityStatus.appendChild(status);
                 
+            } else {
+                confirm(`To proceed, please complete this form first. Thank you!`)
             }
             
         }
-
-        // function loadPortfolio() {
-        //     const portfolio = document.getElementById('portfolio');
-        //     portfolio.innerHTML = '';
-
-        //     for (let i = 1; i <= 3; i++) {
-        //         const img = document.createElement('img');
-        //         const randomNumber = Math.floor(Math.random() * 12) + 1;
-        //         img.src = "./assets/random-portfolio/" + randomNumber + ".jpg";         
-        //         img.className = 'portfolio-img col-md-4';
-        //         portfolio.appendChild(img);
-        //     }
-        // }
-
-        function loadOptions() {
-            const moment = document.getElementById('moment').value;
-
-            const graduationPackage = [
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
-            ];
-
-            const maternityPackage = [
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
-            ];
-
-            const familyPackage = [
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
-            ];
-
-            const preWeddingPackage = [
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
-            ];
-
-            const holidayPackage = [
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' },
-                { name: 'Studio 1', location: '', img: '', harga: '', howLong: '' }
-            ];
-
-            
-            if (moment === 'graduationShoot') {
-                packageOptions(graduationPackage);
-            } else if (moment === 'maternityShoot') {
-                packageOptions(maternityPackage);
-            } else if (moment === 'familyShoot') {
-                packageOptions(familyPackage);
-            } else if (moment === 'preWeddingShoot') {
-                packageOptions(preWeddingPackage);
-            } else if (moment === 'holidayShoot') {
-                packageOptions(holidayPackage);
-            }
-
-        }
-
-        function packageOptions(packages) {
-            const packageOptions = document.getElementById('packageOptions');
-            packageOptions.innerHTML = '';
-
-            packages.forEach(package => {
-                let card = `
-                    <div class="col-md-4">
-                    <div class="card photographer-box" data-id="1">
-                        <div class="card-body">
-                            <h5 class="card-title">Astri</h5>
-                            <img src="./assets/photographer/astri.jpg" class="img-fluid rounded photographer-img mb-3" alt="Astri">
-                            <p class="card-text">Location: ${package.name}</p>
-                            <p class="card-text">Location: ${package.location}</p>
-                        </div>
-                    </div>
-                    </div>`;
-
-                packageOptions.innerHTML += card;
-            });
-        }
-
 
         function selectPackage(duration, price) {
-            const packages = document.querySelectorAll('.rounded-box');
-            packages.forEach(pkg => pkg.classList.remove('selected'));
+            const city = document.getElementById('city').value;
+            const photographer = document.getElementById('photographer').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
 
-            event.currentTarget.classList.add('selected');
-            document.getElementById('summary').innerHTML = `
-                <h4>Summary</h4>
-                <p>City: ${document.getElementById('city').value}</p>
-                <p>Photographer: ${document.getElementById('photographer').value}</p>
-                <p>Moment: ${document.getElementById('moment').value}</p>
-                <p>Package: ${duration}</p>
-                <p>Total Price: $${price}</p>
-            `;
+            if (city && photographer && date && time) {
+                const packages = document.querySelectorAll('card-body');
+                packages.forEach(pkg => pkg.classList.remove('selected'));
+
+                event.currentTarget.classList.add('selected');
+                document.getElementById('summary').innerHTML = `
+                    <br>
+                    <div class="card summary-box">
+                        <div class="card-body">
+                            <h4>Summary</h4>
+                            <p>City: ${document.getElementById('city').value}</p>
+                            <p>Photographer: ${document.getElementById('photographer').value}</p>
+                            <p>Moment: ${document.getElementById('moment').value}</p>
+                            <p>Package: ${duration}</p>
+                            <p value="${price}" id="totalPrice">Total Price: Rp.${price}.000</p>
+                        </div>
+                    </div>`;
+            } else {
+                confirm(`To proceed, please complete this form first. Thank you!`)
+            }
+
+            
         }
 
         function playGatcha() {
-            const discounts = [0, 10, 25, 30];
-            const result = discounts[Math.floor(Math.random() * discounts.length)];
-            const gatchaResult = document.getElementById('gatchaResult');
-            gatchaResult.innerHTML = `You ${result > 0 ? 'won' : 'did not win'} a discount! ${result > 0 ? 'Discount: ' + result + '%' : ''}`;
+            const city = document.getElementById('city').value;
+            const photographer = document.getElementById('photographer').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            if (city && photographer && date && time) {
+                const discounts = [0, 10, 25, 30];
+                const result = discounts[Math.floor(Math.random() * discounts.length)];
+                const gatchaResult = document.getElementById('gatchaResult');
+                const totalPrice = document.getElementById('totalPrice');
+                const discountPrice = totalPrice.getAttribute("value") * (result / 100);
+                const newPrice = totalPrice.getAttribute("value") - discountPrice;
+                // console.log(totalPrice / result);
+                if (result > 0) {
+                    gatchaResult.innerHTML = `<br><p value="${newPrice}" id="gatchaPrice">You win discount of ${result}% or Rp. ${discountPrice}.000 and this is the new price: Rp. ${newPrice}.000</p>`;
+                } else {
+                    gatchaResult.innerHTML = `<br><p value="${totalPrice.getAttribute("value")}" id="gatchaPrice">You did not win discount!</p>`;
+                }
+            } else {
+                confirm(`To proceed, please complete this form first. Thank you!`)
+            }
+
         }
 
         function confirmPayment() {
-            if (confirm('Do you want to confirm the payment?')) {
-                window.location.href = 'https://wa.me/YourPhotographerNumber';
+            const city = document.getElementById('city').value;
+            const photographer = document.getElementById('photographer').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            if (city && photographer && date && time) {
+                const gatchaPrice = document.getElementById('gatchaPrice').getAttribute("value");
+            
+                if (confirm(`Your Payment Rp. ${gatchaPrice}.000 is successful, Please Confirmation to Whatsapp`)) {
+                    window.location.href = `https://wa.me/6285894999562?text=Yay%21%20Thank%20you%20for%20payment.%20Our%20Photologue%20Team%20will%20be%20in%20touch%20with%20you%20shortly%21`;
+                }
+            } else {
+                confirm(`To proceed, please complete this form first. Thank you!`)
             }
         }
     </script>

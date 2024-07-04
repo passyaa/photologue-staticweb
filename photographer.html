@@ -8,32 +8,14 @@
     <link rel="icon" type="image/png" href="./assets/favicon/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white
-        }
-
-        .header {
-            background-size: cover;
-            background-position: center;
-            color: black;
-            text-align: center;
-            padding-top: 100px;
-        }
-
-        .header h1 {
-            font-size: 48px;
-            font-weight: bold;
-        }
-
         .photographer-box {
             margin-top: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
+            cursor: pointer;
         }
 
         .photographer-box:hover {
@@ -89,8 +71,6 @@
                             <img src="./assets/photographer/astri.jpg" class="img-fluid rounded photographer-img mb-3" alt="Astri">
                             <p class="card-text">Location: Jakarta</p>
                             <p class="card-text">Instagram: @astri</p>
-                            <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
-                            <a href="#" class="card-link Calendar-link">Calendar</a>
                         </div>
                     </div>
                 </div>
@@ -101,8 +81,6 @@
                             <img src="./assets/photographer/budi.jpg" class="img-fluid rounded photographer-img mb-3" alt="Budi">
                             <p class="card-text">Location: Jakarta</p>
                             <p class="card-text">Instagram: @budi</p>
-                            <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
-                            <a href="#" class="card-link Calendar-link">Calendar</a>
                         </div>
                     </div>
                 </div>
@@ -113,8 +91,6 @@
                             <img src="./assets/photographer/caca.jpg" class="img-fluid rounded photographer-img mb-3" alt="Caca">
                             <p class="card-text">Location: Jogja</p>
                             <p class="card-text">Instagram: @caca</p>
-                            <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
-                            <a href="#" class="card-link Calendar-link">Calendar</a>
                         </div>
                     </div>
                 </div>
@@ -125,8 +101,6 @@
                             <img src="./assets/photographer/dinda.jpg" class="img-fluid rounded photographer-img mb-3" alt="Dinda">
                             <p class="card-text">Location: Jogja</p>
                             <p class="card-text">Instagram: @dinda</p>
-                            <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
-                            <a href="#" class="card-link Calendar-link">Calendar</a>
                         </div>
                     </div>
                 </div>
@@ -137,62 +111,22 @@
                             <img src="./assets/photographer/egy.jpg" class="img-fluid rounded photographer-img mb-3" alt="Egy">
                             <p class="card-text">Location: Bali</p>
                             <p class="card-text">Instagram: @egy</p>
-                            <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
-                            <a href="#" class="card-link Calendar-link">Calendar</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card photographer-box" data-id="5">
+                    <div class="card photographer-box" data-id="6">
                         <div class="card-body">
                             <h5 class="card-title">Faisal</h5>
                             <img src="./assets/photographer/faisal.jpg" class="img-fluid rounded photographer-img mb-3" alt="Faisal">
                             <p class="card-text">Location: Bali</p>
                             <p class="card-text">Instagram: @faisal</p>
-                            <a href="#" class="card-link portfolio-link" data-instagram="@passyaa">Portfolio</a>
-                            <a href="#" class="card-link Calendar-link">Calendar</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Modal for Portfolio -->
-    <div class="modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-labelledby="portfolioModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="portfolioModalLabel">Portfolio</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <iframe id="instagramFrame" src="" width="100%" height="500px" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal -->
-    <div class="modal fade" id="availabilityModal" tabindex="-1" role="dialog" aria-labelledby="availabilityModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="availabilityModalLabel">Availability</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="calendar"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
     <!-- Footer -->
     <footer class="footer">
@@ -222,49 +156,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('.Calendar-link').on('click', function() {
-                var photographerId = $(this).data('id');
-                
-                $('#calendar').fullCalendar('destroy'); 
-                $('#calendar').fullCalendar({
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    defaultDate: '2024-07-03',
-                    editable: false,
-                    events: [
-                        {
-                            title: 'Available',
-                            start: '2024-07-04T10:00:00',
-                            end: '2024-07-04T16:00:00'
-                        },
-                        {
-                            title: 'Available',
-                            start: '2024-07-07T09:00:00',
-                            end: '2024-07-07T12:00:00'
-                        }
-                        // Add more events as needed
-                    ]
-                });
-
-                $('#availabilityModal').modal('show');
-            });
-        });
-
-
-        $('.portfolio-link').on('click', function(e) {
-            e.preventDefault();
-            var instagramUsername = $(this).data('instagram');
-            $('#instagramFrame').attr('src', 'https://www.instagram.com/' + instagramUsername + "/");
-            $('#portfolioModal').modal('show');
-        });
-    </script>
 </body>
 
 </html>

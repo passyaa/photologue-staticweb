@@ -10,29 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white
-        }
-
-        .header {
-            background-size: cover;
-            background-position: center;
-            color: black;
-            text-align: center;
-            padding-top: 100px;
-            padding-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            font-weight: bold;
-        }
-
-        .content {
-            padding: 50px 15px;
-        }
-
         .gallery-img {
             height: 500px;
             width: 320px;
@@ -74,8 +51,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <label for="photographerSelect">Choose a photographer :</label>
-                    <select id="photographerSelect" class="form-control" onchange="photographerSelect()">
+                    <label for="photographer-select">Choose a photographer :</label>
+                    <select id="photographer-select" class="form-control" onchange="photographerSelect()">
                         <option value="" selected disabled>Select a photographer</option>
                         <option value="astri">Astri - Location : Jakarta</option>
                         <option value="budi">Budi - Location : Jakarta</option>
@@ -154,40 +131,24 @@
         };
 
         function photographerSelect() {
-            const selectedPhotographer = document.getElementById("photographerSelect").value;
-            const portfolioDiv = document.getElementById('portfolio');
-            portfolioDiv.innerHTML = '';
+            const photographerSelect = document.getElementById("photographer-select").value;
+            const portfolio = document.getElementById('portfolio');
+            portfolio.innerHTML = '';
 
-            if (photographers[selectedPhotographer]) {
-                photographers[selectedPhotographer].forEach(imageUrl => {
-                    const colDiv = document.createElement('div');
-                    colDiv.className = 'col-md-4';
-                    const img = document.createElement('img');
-                    img.src = imageUrl;
-                    img.className = 'img-fluid gallery-img rounded';
-                    colDiv.appendChild(img);
-                    portfolioDiv.appendChild(colDiv);
+            if (photographers[photographerSelect]) {
+
+                photographers[photographerSelect].forEach(imageUrl => {
+
+                    const portfoliohtml = `
+                        <div class="col-md-4">
+                            <img src="${imageUrl}" class="img-fluid gallery-img rounded">
+                        </div>`;
+                    // append ke html id "product-cards"
+                    portfolio.innerHTML += portfoliohtml;
+                
                 });
             }
         }
-
-        // document.getElementById('photographerSelect').addEventListener('change', function() {
-        //     const selectedPhotographer = this.value;
-        //     const portfolioDiv = document.getElementById('portfolio');
-        //     portfolioDiv.innerHTML = '';
-
-        //     if (photographers[selectedPhotographer]) {
-        //         photographers[selectedPhotographer].forEach(imageUrl => {
-        //             const colDiv = document.createElement('div');
-        //             colDiv.className = 'col-md-4';
-        //             const img = document.createElement('img');
-        //             img.src = imageUrl;
-        //             img.className = 'img-fluid gallery-img rounded';
-        //             colDiv.appendChild(img);
-        //             portfolioDiv.appendChild(colDiv);
-        //         });
-        //     }
-        // });
     </script>
 </body>
 
